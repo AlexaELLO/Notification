@@ -12,9 +12,6 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RestController
 public class Controller {
 
-   /* @Value("${spring.application.name}")
-    private String name;*/
-
     private NotificationRepository notificationRepository;
 
     public Controller(NotificationRepository notificationRepository) {
