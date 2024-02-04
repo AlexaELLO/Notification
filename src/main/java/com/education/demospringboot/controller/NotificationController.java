@@ -1,7 +1,7 @@
-package com.education.demospringboot.servicenotification;
+package com.education.demospringboot.controller;
 
 import com.education.demospringboot.model.Notification;
-import com.education.demospringboot.repositorynotification.NotificationRepository;
+import com.education.demospringboot.repository.NotificationRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,22 +10,21 @@ import java.util.Optional;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @RestController
-public class Controller {
+public class NotificationController {
 
-    private NotificationRepository notificationRepository;
+    private final NotificationRepository notificationRepository;
 
-    public Controller(NotificationRepository notificationRepository) {
+    public NotificationController(NotificationRepository notificationRepository) {
         this.notificationRepository = notificationRepository;
     }
 
-    @GetMapping(value = "/notification/{id}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/notifications/{id}", produces = APPLICATION_JSON_VALUE)
     public Optional<Notification> getNotificationById(@PathVariable Integer id) {
-        //studentRepository.save(student);
         return notificationRepository.findById(id);
     }
 
-    @PutMapping(value = "/notification", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public Notification postNotificatio(@RequestBody Notification requestNotification) {
+    @PutMapping(value = "/notifications", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public Notification postNotification(@RequestBody Notification requestNotification) {
         return notificationRepository.save(requestNotification);
     }
 
@@ -34,23 +33,17 @@ public class Controller {
         return notificationRepository.findAll();
     }
 
-    @PostMapping(value = "/notification/update/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notifications/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public Notification updateNotificationById(@PathVariable Integer id, @RequestBody Notification requestNotification) {
         if (notificationRepository.findById(id).isPresent()) {
             return notificationRepository.save(requestNotification);
         } else {
-            throw new RuntimeException("Student not found");
+            throw new RuntimeException("Notification not found");
         }
     }
 
-    @DeleteMapping(value = "/notification/{id}", produces = APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/notifications/{id}", produces = APPLICATION_JSON_VALUE)
     public void deleteNotificationById(@PathVariable Integer id) {
         notificationRepository.deleteById(id);
     }
 }
-
-
-/*
- * Уведомления
- * КРУД приложение, для уведомлений
- * */
