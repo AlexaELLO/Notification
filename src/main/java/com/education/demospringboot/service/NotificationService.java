@@ -20,23 +20,19 @@ public class NotificationService {
         this.notificationRepository = notificationRepository;
     }
 
-    @GetMapping(value = "/notifications/{id}", produces = APPLICATION_JSON_VALUE)
-    public Optional<Notification> getById(@PathVariable Integer id) {
+    public Optional<Notification> getById(Integer id) {
         return notificationRepository.findById(id);
     }
 
-    @PutMapping(value = "/notifications", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public Notification post(@RequestBody Notification requestNotification) {
+    public Notification post(Notification requestNotification) {
         return notificationRepository.save(requestNotification);
     }
 
-    @GetMapping(value = "/notifications", produces = APPLICATION_JSON_VALUE)
     public List<Notification> getAll() {
         return notificationRepository.findAll();
     }
 
-    @PostMapping(value = "/notifications/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public Notification updateById(@PathVariable Integer id, @RequestBody Notification requestNotification) {
+    public Notification updateById(Integer id, Notification requestNotification) {
         if (notificationRepository.findById(id).isPresent()) {
             return notificationRepository.save(requestNotification);
         } else {
@@ -44,8 +40,7 @@ public class NotificationService {
         }
     }
 
-    @DeleteMapping(value = "/notifications/{id}", produces = APPLICATION_JSON_VALUE)
-    public void deleteById(@PathVariable Integer id) {
+    public void deleteById(Integer id) {
         notificationRepository.deleteById(id);
     }
 
